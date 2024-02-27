@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris</title>
+  <style>
+    #gameboard {
+      width: 300px;
+      height: 600px;
+      border: 1px solid black;
+    }
+    .tetromino {
+      background-color: cyan;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameboard"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('gameboard');
+      let squares = Array.from(Array(200).keys());
+
+      function createGrid() {
+        for (let i = 0; i < 200; i++) {
+          const square = document.createElement('div');
+          grid.appendChild(square);
+        }
+      }
+
+      createGrid();
+
+      const tetrominoes = [
+        [1, 11, 21, 31], // I
+        [1, 2, 11, 21], // J
+        [0, 1, 11, 21], // L
+        [0, 1, 11, 12], // O
+        [0, 1, 10, 11], // S
+        [0, 1, 2, 11], // T
+        [0, 10, 11, 21] // Z
+      ];
+
+      let currentPosition = 4;
+      let currentRotation = 0;
+      let random = Math.floor(Math.random() * tetrominoes.length);
+      let current = tetrominoes[random][currentRotation];
+
+      function draw() {
+        current.forEach(index => {
+          squares[currentPosition + index].classList.add('tetromino');
+        });
+      }
+
+      draw();
+    });
+  </script>
+</body>
+</html>
